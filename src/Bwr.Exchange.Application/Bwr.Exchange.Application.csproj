@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <VersionPrefix>1.0.0.0</VersionPrefix>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>Bwr.Exchange.Application</AssemblyName>
+    <PackageId>Bwr.Exchange.Application</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Bwr.Exchange</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="19.2.0.46" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bwr.Exchange.Core\Bwr.Exchange.Core.csproj" />
+    <ProjectReference Include="..\Bwr.Exchange.Reflection\Bwr.Exchange.Reflection.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Statements\" />
+    <Folder Include="Settings\Commisions\" />
+  </ItemGroup>
+</Project>
