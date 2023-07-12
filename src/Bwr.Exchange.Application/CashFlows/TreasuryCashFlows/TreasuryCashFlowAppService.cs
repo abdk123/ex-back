@@ -153,7 +153,7 @@ namespace Bwr.Exchange.CashFlows.TreasuryCashFlows
                 };
                 foreach (var treasury in treasuries)
                 {
-                    var balance = await _treasuryCashFlowManager.GetLastBalance(treasury.Id, currency.Id, toDate);
+                    var balance = _treasuryCashFlowManager.GetLastBalance(treasury.Id, currency.Id, toDate);
                     dto.TotalBalance += balance;
                 }
 

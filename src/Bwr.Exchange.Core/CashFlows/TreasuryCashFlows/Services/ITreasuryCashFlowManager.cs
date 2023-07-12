@@ -22,6 +22,6 @@ namespace Bwr.Exchange.CashFlows.TreasuryCashFlows.Services
         Task<TreasuryCashFlow> GetByTransctionInfo(int transactionId, TransactionType transactionType);
         Task<TreasuryCashFlow> GetByTransctionInfo(int transactionId, TransactionType transactionType, string type);
         Task<IList<TreasuryCashFlow>> GetNextAsync(TreasuryCashFlow currenctCashFlow);
-        Task<double> GetLastBalance(int treasuryId, int currencyId, DateTime toDate);
+        double GetLastBalance(int treasuryId, int currencyId, DateTime date);
     }
 }

@@ -8,7 +8,7 @@ namespace Bwr.Exchange.Settings.Clients
 {
     public interface IClientAppService : IApplicationService, ICrudEjAppService<ClientDto, CreateClientDto, UpdateClientDto>
     {
-        Task<ClientBalanceDto> GetCurrentBalance(CurrentBalanceInputDto input);
+        ClientBalanceDto GetCurrentBalance(CurrentBalanceInputDto input);
         Task<ClientBalanceDto> GetBalanceForEdit(ClientBalanceForEditInputDto input);
     }
 }

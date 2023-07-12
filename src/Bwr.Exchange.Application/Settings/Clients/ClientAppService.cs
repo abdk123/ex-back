@@ -6,6 +6,7 @@ using Bwr.Exchange.Settings.Clients.Services;
 using Bwr.Exchange.Shared.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Syncfusion.EJ2.Base;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,26 +140,14 @@ namespace Bwr.Exchange.Settings.Clients
                 throw new UserFriendlyException(validationResultMessage);
         }
 
-        public async Task<ClientBalanceDto> GetCurrentBalance(CurrentBalanceInputDto input)
+        public ClientBalanceDto GetCurrentBalance(CurrentBalanceInputDto input)
         {
-            var clientBalanceDto = new ClientBalanceDto()
+            ClientBalanceDto clientBalanceDto = new ClientBalanceDto()
             {
                 ClientId = input.ClientId,
                 CurrencyId = input.CurrencyId
             };
-            var previousClientBalance = await _clientCashFlowManager.GetLastAsync(input.ClientId, input.CurrencyId);
-            if (previousClientBalance != null)
-            {
-                clientBalanceDto.Balance = previousClientBalance.CurrentBalance;
-            }
-            else
-            {
-                var clientBalance = _clientManager.GetClientBalance(input.ClientId, input.CurrencyId);
-                if (clientBalance != null)
-                {
-                    clientBalanceDto.Balance = clientBalance.Balance;
-                }
-            }
+            clientBalanceDto.Balance = _clientCashFlowManager.GetLastBalance(input.ClientId, input.CurrencyId, DateTime.Now);
 
             return clientBalanceDto;
         }

@@ -179,21 +179,17 @@ namespace Bwr.Exchange.CashFlows.TreasuryCashFlows.Services
                 }
             }
         }
-        public async Task<double> GetLastBalance(int treasuryId, int currencyId, DateTime toDate)
+        public double GetLastBalance(int treasuryId, int currencyId, DateTime date)
         {
-            double balance = 0.0;
-            var treasuryCashFlow = _treasuryCashFlowRepository
-                .GetAllList(x => x.TreasuryId == treasuryId && x.CurrencyId == currencyId && x.Date <= toDate)
-                .OrderByDescending(x => x.Date).ThenByDescending(x => x.Id).FirstOrDefault();
+            var treasuryBalance = _treasuryBalanceManager.GetByTreasuryIdAndCurrency(treasuryId, currencyId);
+            double balance = treasuryBalance.InitilBalance;
 
-            if (treasuryCashFlow != null)
+            var treasuryCashFlows = _treasuryCashFlowRepository
+                .GetAllList(x => x.TreasuryId == treasuryId && x.CurrencyId == currencyId && x.Date <= date);
+
+            if (treasuryCashFlows.Any())
             {
-                balance = treasuryCashFlow.CurrentBalance;
-            }
-            else
-            {
-                var treasuryBalance = await _treasuryBalanceManager.GetAsync(currencyId, treasuryId);
-                balance = treasuryBalance != null ? treasuryBalance.InitilBalance : 0.0;
+                balance += treasuryCashFlows.Sum(x => x.CurrentBalance);
             }
 
             return balance;
